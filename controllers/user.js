@@ -1,5 +1,11 @@
 const User = require('../models/user');
 
+const test = (req, res) => {
+    return res.status(200).json({
+        message: 'Test success.',
+    });
+};
+
 const getBoard = (req, res) => {
     const userId = req.params.userid;
     User.findById(userId, (err, user) => {
@@ -164,4 +170,5 @@ module.exports = {
     updateUser,
     getBoard,
     updateBoards,
+    test,
 };

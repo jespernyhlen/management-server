@@ -6,11 +6,13 @@ const {
     readUser,
     readUsers,
     updateUser,
-    getActivities,
     getBoard,
     updateBoards,
+    test,
 } = require('../controllers/user');
 
+router.get('/test/', test);
+router.get('/user/:id', authenticate, readUser);
 router.get('/user/:id', authenticate, readUser);
 router.get('/board/:userid', authenticate, getBoard);
 router.put('/board/update', authenticate, updateBoards);
