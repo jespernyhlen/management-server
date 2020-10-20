@@ -8,14 +8,19 @@ const {
     updateUser,
     getBoard,
     updateBoards,
-    test,
+    getTeam,
+    getTeams,
+    addTeam,
+    updateTeam,
 } = require('../controllers/user');
 
-router.get('/test/', test);
-router.get('/user/:id', authenticate, readUser);
 router.get('/user/:id', authenticate, readUser);
 router.get('/board/:userid', authenticate, getBoard);
 router.put('/board/update', authenticate, updateBoards);
+router.put('/teams', getTeams);
+router.get('/team/:teamid', getTeam);
+router.post('/teams/add', addTeam);
+router.put('/teams/update', updateTeam);
 
 router.get('/users', authenticate, readUsers);
 
