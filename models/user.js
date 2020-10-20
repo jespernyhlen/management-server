@@ -8,14 +8,9 @@ const ActivitySchema = new mongoose.Schema({
         type: String,
     },
     date: { type: String },
-    notification: {
-        type: [
-            {
-                color: { type: String },
-                content: { type: String },
-            },
-        ],
-    },
+    noteColor: { type: String },
+    noteContent: { type: String },
+    members: Array,
 });
 
 const ColumnsSchema = new mongoose.Schema({
@@ -57,7 +52,7 @@ const userSchema = new mongoose.Schema(
             data: String,
             default: '',
         },
-
+        teams: Array,
         boards: [
             {
                 title: {
@@ -71,6 +66,27 @@ const userSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+
+userSchema.pre('save', function (next) {
+    const ObjectId = mongoose.Types.ObjectId;
+    const newID = new ObjectId();
+
+    if (Object.entries(this.boards).length == 0)
+        this.boards.push({
+            title: 'Example Board',
+            activities: [],
+            columns: [
+                {
+                    _id: newID,
+                    title: 'Example Column',
+                    color: '#3f51b5',
+                },
+            ],
+            columnOrder: [newID],
+        });
+
+    next();
+});
 
 // Virtual accessing hashed password
 userSchema

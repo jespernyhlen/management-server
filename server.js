@@ -31,7 +31,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 if ((process.env.NODE_ENV = 'development')) {
-    app.use(cors({ origin: CLIENT_WEB_URL }));
+    app.use(cors({ origins: [CLIENT_WEB_URL, 'http://localhost:3001'] }));
 }
 
 app.use('/api', authRoutes);
